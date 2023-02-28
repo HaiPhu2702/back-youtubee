@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
 const app = express();
-app.use(cors())
+
 
 dotenv.config();
 
@@ -28,11 +28,10 @@ connect()
 app.use(cookieParser());
 app.use(express.json());
 
-app.all('/', function(err,req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    next()
-  });
+app.use(cors({
+    credentials:true,
+    origin:['https://youtube-font-end-theta.vercel.app/']
+}))
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
